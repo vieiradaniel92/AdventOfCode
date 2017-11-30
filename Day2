@@ -1,0 +1,88 @@
+## Day 2 of 2015
+
+## Surface of the area 2*l*w + 2*w*h + 2*h*l
+
+#  E.g (2 x Length x Width) + (2 x Width x Height) + (2 x Height x Length)
+
+# Elves also need extra room, the area of the smallest side
+
+　
+$Dimensions = @{
+Length = 2
+Width = 3
+Height = 4
+}
+
+#Length
+ $Dimensions.Length * $Dimensions.Width   # 2 x 6
+
+# Width
+ $Dimensions.Width * $Dimensions.Height  # 2 x 12
+
+ #Height
+ $Dimensions.Length * $Dimensions.Height # 2 x 8 
+
+ # Plus the extra slack which the smallest was 6, so plus 6 on the end 
+
+ (2 * 6) + (2 * 12) + (2 * 8 ) + 6 # 58 square feet of paper needed
+
+ # 2nd test 1 x 1 x 10
+
+ #Length
+
+ 
+$Dimensions2 = @{
+Length = 1
+Width = 1
+Height = 10
+}
+
+# Length
+    $Dimensions2.Length * $Dimensions2.Width # 2 x 1
+# Width
+    $Dimensions2.Width * $Dimensions2.Height # 2 x 10
+# Height
+    $Dimensions2.Length * $Dimensions2.Height  # 2 x 10
+
+    (2 * 1) + (2 * 10) + (2 * 10) + 1
+
+　
+　
+        # 15x27x5
+        # 20x3x11 
+
+$Gifts = @"
+20x3x11
+15x27x5
+"@.Split("`n")
+
+ForEach ($Gift in $Gifts){
+$Gift = $Gift.Split("x")
+[int]$Length = $Gift[0]
+[int]$Width  = $Gift[1]
+[int]$Height  = $Gift[2]
+
+# Maths part
+# Calculate Height
+$LengthValue = $Length * $Width
+$lengthValue = 2 * $LengthValue 
+
+# Calculate Width
+$WidthValue = $Width * $Height
+$WidthValue = 2 * $WidthValue
+
+# Calculate height
+$HeightValue = $length * $Height
+$HeightValue = 2 * $HeightValue
+
+$SmallestDimension = [array]$LengthValue,$WidthValue,$HeightValue | Measure-Object -Minimum | select -ExpandProperty Minimum
+
+$TotalSizePerGift =  (2 * $LengthValue) + (2 * $WidthValue) + (2 * $HeightValue) + $SmallestDimension
+Write-host "Size for the individual Gift $TotalSizePerGift"
+
+$TotalSizeNeeded += $TotalSizePerGift
+Write-Output "Total size needed is $TotalSizeNeeded"
+}
+
+　
+ 
